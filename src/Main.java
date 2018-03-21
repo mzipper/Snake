@@ -12,6 +12,6 @@ public class Main {
 		f1.setSize(300,300);
 		f1.setVisible(true);
 		f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);             
-
+System.out.println("Hello");
 	}
 }
