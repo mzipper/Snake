@@ -1,3 +1,4 @@
+package com.zipper.snake;
 import javax.swing.JFrame;
 
 public class Main {

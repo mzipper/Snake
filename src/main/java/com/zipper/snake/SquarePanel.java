@@ -1,3 +1,4 @@
+package com.zipper.snake;
 import java.awt.Color;
 import javax.swing.JPanel;
 

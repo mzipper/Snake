@@ -1,3 +1,4 @@
+package com.zipper.snake;
 public class Tuple { 
 	  public  int x; 
 	  public  int y; 
