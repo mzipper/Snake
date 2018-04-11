@@ -47,7 +47,15 @@ class Window extends JFrame{
 
 		// Links the window to the keyboardlistenner.
 		this.addKeyListener((KeyListener) new KeyboardListener());
-
+		
+		//Setting up the window settings
+		setTitle("Snake");
+		setSize(300,300);
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null); //Center window on screen.
+		
+		
 		//To do : handle multiplayers .. The above works, test it and see what happens
 		
 		//Tuple position2 = new Tuple(13,13);
