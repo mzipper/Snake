@@ -9,7 +9,8 @@ public class ThreadsController extends Thread
 	int sizeSnake = 3;
 	private static long speed = 50;
 	public static int directionSnake;
-
+	private static int scoreCounter = 0;
+	
 	ArrayList<Tuple> positions = new ArrayList<Tuple>();
 	Tuple foodPosition;
 
@@ -39,6 +40,13 @@ public class ThreadsController extends Thread
 	public static long getSpeed()
 	{
 		return speed;
+	}
+	
+	
+	
+	public static int getScoreCounter()
+	{
+		return scoreCounter;
 	}
 	
 	// Important part :
@@ -75,6 +83,7 @@ public class ThreadsController extends Thread
 		boolean eatingFood = posCritique.getX() == foodPosition.y && posCritique.getY() == foodPosition.x;
 		if (eatingFood) {
 			System.out.println("Yummy!");
+			Window.scoreTxtField.setText( Integer.toString(++scoreCounter) );
 			sizeSnake = sizeSnake + 1;
 			foodPosition = getValAleaNotInSnake();
 

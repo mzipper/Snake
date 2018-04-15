@@ -14,12 +14,16 @@ class Window extends JFrame{
 	public static int height = 20;
 	
 	private JPanel screenPanel;
-	
 	private JPanel speedButtonsPanel;
+	private JPanel scorePanel;
+	
 	private JRadioButton rBLowSpeed;
 	private JRadioButton rBMedSpeed;
 	private JRadioButton rBHiSpeed;
 	private ButtonGroup group;
+	
+	private JLabel scoreLabel;
+	static JTextField scoreTxtField;
 	
 	
 	public Window()
@@ -30,9 +34,6 @@ class Window extends JFrame{
 		buildScreenPanelPlus();
 		add(screenPanel, BorderLayout.CENTER);
 		
-		buildSpeedRadioButtons();
-	    add(speedButtonsPanel, BorderLayout.WEST);
-	    
 		// Links the window to the keyboardlistenner.
 		screenPanel.addKeyListener((KeyListener) new KeyboardListener());
 		
@@ -47,12 +48,20 @@ class Window extends JFrame{
 		ThreadsController c = new ThreadsController(position);
 	    
 		//Make screenPanel get the [initial focus.] focus whenever window is activated.
-		addWindowFocusListener(new WindowAdapter() {
-		    public void windowGainedFocus(WindowEvent e) {
-		        screenPanel.requestFocusInWindow();
-		    }
+		addWindowFocusListener(new WindowAdapter()
+		{
+			 public void windowGainedFocus(WindowEvent e)
+			 {
+				 screenPanel.requestFocusInWindow();
+			 }
 		});
-	   
+		
+		buildSpeedRadioButtons();
+		add(speedButtonsPanel, BorderLayout.WEST);
+		
+		buildScoreComponents();
+		add(scorePanel, BorderLayout.NORTH);
+		
 		//c.setSpeed(100);
 		//Let's start the game now..
 		c.start();
@@ -196,5 +205,23 @@ class Window extends JFrame{
 			
 		}
 	} //end of MouseEventDemo class
+	
+	public void buildScoreComponents()
+	{
+		scorePanel = new JPanel();
+		scorePanel.setLayout(new FlowLayout());
+		
+		scoreLabel = new JLabel("Score:");
+		scoreTxtField = new JTextField();
+		scoreTxtField.setEditable(false);
+		
+		scorePanel.add(scoreLabel);
+		scorePanel.add(scoreTxtField);
+		
+		scoreTxtField.setColumns(4);
+		scoreTxtField.setHorizontalAlignment(JTextField.RIGHT);
+		//scoreTxtField.setText(""); //for testing
+		
+	} // end of buildScoreComponents method
 	
 } //end of window class
