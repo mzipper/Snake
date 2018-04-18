@@ -3,68 +3,56 @@ package com.zipper.snake;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+
+import com.zipper.snake.Window.ScreenMouseEvent;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 class Window extends JFrame{
 	private static final long serialVersionUID = -2542001418764869760L;
-	public static ArrayList<ArrayList<DataOfSquare>> Grid;
-	public static int width = 20;
-	public static int height = 20;
 	
-	private JPanel screenPanel;
 	private JPanel speedButtonsPanel;
-	private JPanel scorePanel;
 	
 	private JRadioButton rBLowSpeed;
 	private JRadioButton rBMedSpeed;
 	private JRadioButton rBHiSpeed;
 	private ButtonGroup group;
 	
-	private JLabel scoreLabel;
-	static JTextField scoreTxtField;
-	
+	private GamePlayPanel gamePanel;
 	
 	public Window()
 	{
-		setLayout(new BorderLayout());
-		setMinimumSize(new Dimension(410, 300) ); //look into panel setting abilities..
+		//setLayout(new FlowLayout());
+		//setMinimumSize(new Dimension(410, 300) ); //look into panel setting abilities..
 		
-		buildScreenPanelPlus();
-		add(screenPanel, BorderLayout.CENTER);
+		gamePanel = new GamePlayPanel();
+		add(gamePanel);
 		
 		// Links the window to the keyboardlistenner.
-		screenPanel.addKeyListener((KeyListener) new KeyboardListener());
-		
-		//gives the screenPanel back the keyboard focus so that arrows can control the snake.
-		//screenPanel.requestFocusInWindow();
-		//screenPanel.setFocusable(true);			//needed to give focus to screenPanel 
-	    addMouseListener(new MouseEventDemo());	//needed to return focus to screenPanel
-		
-	    // initial position of the snake
-		Tuple position = new Tuple(10,10);
-		// passing this value to the controller
-		ThreadsController c = new ThreadsController(position);
+		gamePanel.addKeyListener((KeyListener) new KeyboardListener());
 	    
 		//Make screenPanel get the [initial focus.] focus whenever window is activated.
 		addWindowFocusListener(new WindowAdapter()
 		{
 			 public void windowGainedFocus(WindowEvent e)
 			 {
-				 screenPanel.requestFocusInWindow();
+				 gamePanel.requestFocusInWindow();
 			 }
 		});
 		
-		buildSpeedRadioButtons();
-		add(speedButtonsPanel, BorderLayout.WEST);
+		//gives the screenPanel back the keyboard focus so that arrows can control the snake.
+		//screenPanel.requestFocusInWindow();
+		//screenPanel.setFocusable(true);			//needed to give focus to screenPanel 
+	    addMouseListener(new ScreenMouseEvent());	//needed to return focus to screenPanel
+	    
+//		buildSpeedRadioButtons();
+//		add(speedButtonsPanel, BorderLayout.WEST);
+	    
 		
-		buildScoreComponents();
-		add(scorePanel, BorderLayout.NORTH);
 		
-		//c.setSpeed(100);
-		//Let's start the game now..
-		c.start();
+		
 
 		
 		
@@ -84,39 +72,6 @@ class Window extends JFrame{
 		
 	}
 	
-	private void buildScreenPanelPlus()
-	{
-		screenPanel = new JPanel();
-		screenPanel.setMinimumSize(new Dimension(300,300)); //look into panel setting abilities..
-		
-		// Creates the arraylist that'll contain the threads
-		Grid = new ArrayList<ArrayList<DataOfSquare>>();
-		ArrayList<DataOfSquare> data;
-		
-		// Creates Threads and its data and adds it to the arrayList
-		for(int i=0;i<width;i++)
-		{
-			data= new ArrayList<DataOfSquare>();
-			for(int j=0;j<height;j++)
-			{
-				DataOfSquare c = new DataOfSquare(2);
-				data.add(c);
-			}
-			Grid.add(data);
-		}
-				
-		// Setting up the layout of the panel
-		screenPanel.setLayout(new GridLayout(20,20,0,0));
-		// Start & pauses all threads, then adds every square of each thread to the panel
-		for(int i=0;i<width;i++)
-		{
-			for(int j=0;j<height;j++)
-			{
-				screenPanel.add(Grid.get(i).get(j).square);
-			}
-		}
-				
-	} //end of buildScreenPanelPlus method
 	
 	private void buildSpeedRadioButtons()
 	{
@@ -174,11 +129,11 @@ class Window extends JFrame{
 	} //end of RadioButtonListener class
 	
 	//class that gives the screenPanel back the keyboard focus so that arrows can control the snake.
-	public class MouseEventDemo implements MouseListener
+	public class ScreenMouseEvent implements MouseListener
 	{
 		 public void mouseClicked(MouseEvent e) {
 		        //Since the user clicked on us, let us get focus!
-		        screenPanel.requestFocusInWindow();
+		        gamePanel.requestFocusInWindow();
 		    }
 
 		@Override
@@ -206,22 +161,6 @@ class Window extends JFrame{
 		}
 	} //end of MouseEventDemo class
 	
-	public void buildScoreComponents()
-	{
-		scorePanel = new JPanel();
-		scorePanel.setLayout(new FlowLayout());
-		
-		scoreLabel = new JLabel("Score:");
-		scoreTxtField = new JTextField();
-		scoreTxtField.setEditable(false);
-		
-		scorePanel.add(scoreLabel);
-		scorePanel.add(scoreTxtField);
-		
-		scoreTxtField.setColumns(4);
-		scoreTxtField.setHorizontalAlignment(JTextField.RIGHT);
-		//scoreTxtField.setText(""); //for testing
-		
-	} // end of buildScoreComponents method
+	
 	
 } //end of window class

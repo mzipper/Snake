@@ -18,7 +18,7 @@ public class ThreadsController extends Thread
 	ThreadsController(Tuple positionDepart)
 	{
 		// Get all the threads
-		Squares = Window.Grid;
+		Squares = GamePlayPanel.Grid;
 
 		headSnakePos = new Tuple(positionDepart.x, positionDepart.y);
 		directionSnake = 1;
@@ -27,7 +27,7 @@ public class ThreadsController extends Thread
 		Tuple headPos = new Tuple(headSnakePos.getX(), headSnakePos.getY());
 		positions.add(headPos);
 
-		foodPosition = new Tuple(Window.height - 1, Window.width - 1);
+		foodPosition = new Tuple(GamePlayPanel.height - 1, GamePlayPanel.width - 1);
 		spawnFood(foodPosition);
 
 	}
@@ -83,7 +83,7 @@ public class ThreadsController extends Thread
 		boolean eatingFood = posCritique.getX() == foodPosition.y && posCritique.getY() == foodPosition.x;
 		if (eatingFood) {
 			System.out.println("Yummy!");
-			Window.scoreTxtField.setText( Integer.toString(++scoreCounter) );
+			GamePlayPanel.scoreTxtField.setText( Integer.toString(++scoreCounter) );
 			sizeSnake = sizeSnake + 1;
 			foodPosition = getValAleaNotInSnake();
 
