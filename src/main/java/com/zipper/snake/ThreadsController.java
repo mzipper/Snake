@@ -14,7 +14,7 @@ public class ThreadsController extends Thread
 	ArrayList<Tuple> positions = new ArrayList<Tuple>();
 	Tuple foodPosition;
 
-	// Constructor of ControlleurThread
+	// Constructor of ThreadsController
 	ThreadsController(Tuple positionDepart)
 	{
 		// Get all the threads

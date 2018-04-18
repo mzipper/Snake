@@ -59,7 +59,7 @@ class GamePlayPanel extends JPanel
 		buildScoreComponents();
 		add(scorePanel, BorderLayout.NORTH);
 		
-		// Links the window to the keyboardlistenner.
+		// Links the window to the KeyboardListener.
 		//screenPanel.addKeyListener((KeyListener) new KeyboardListener());
 
 		// initial position of the snake
