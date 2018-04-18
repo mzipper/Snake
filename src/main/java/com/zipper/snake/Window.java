@@ -1,10 +1,6 @@
 package com.zipper.snake;
 
-import java.util.ArrayList;
-
 import javax.swing.JFrame;
-
-import com.zipper.snake.Window.ScreenMouseEvent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -64,7 +60,7 @@ class Window extends JFrame{
 		setLocationRelativeTo(null); //Center window on screen.
 		setVisible(true);
 		
-		//To do : handle multiplayers .. The above works, test it and see what happens
+		//To do : handle multiplayer .. The above works, test it and see what happens
 		
 		//Tuple position2 = new Tuple(13,13);
 		//ControlleurThreads c2 = new ControlleurThreads(position2);
