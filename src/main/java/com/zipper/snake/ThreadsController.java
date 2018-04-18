@@ -27,7 +27,7 @@ public class ThreadsController extends Thread
 		Tuple headPos = new Tuple(headSnakePos.getX(), headSnakePos.getY());
 		positions.add(headPos);
 
-		foodPosition = new Tuple(Window.height - 1, Window.width - 1);
+		foodPosition = new Tuple(Window.height - 1, Window.width - 1);	//20 - 1, 20 - 1);
 		spawnFood(foodPosition);
 
 	}
@@ -107,13 +107,13 @@ public class ThreadsController extends Thread
 	// return a position not occupied by the snake
 	private Tuple getValAleaNotInSnake() {
 		Tuple p;
-		int ranX = 0 + (int) (Math.random() * 19);
-		int ranY = 0 + (int) (Math.random() * 19);
+		int ranX = 0 + (int) (Math.random() * (Window.width - 1) );	 // 19);
+		int ranY = 0 + (int) (Math.random() * (Window.height - 1) ); // 19);
 		p = new Tuple(ranX, ranY);
 		for (int i = 0; i <= positions.size() - 1; i++) {
 			if (p.getY() == positions.get(i).getX() && p.getX() == positions.get(i).getY()) {
-				ranX = 0 + (int) (Math.random() * 19);
-				ranY = 0 + (int) (Math.random() * 19);
+				ranX = 0 + (int) (Math.random() * (Window.width - 1) );	 // 19);
+				ranY = 0 + (int) (Math.random() * (Window.height - 1) ); // 19);
 				p = new Tuple(ranX, ranY);
 				i = 0;
 			}
@@ -126,28 +126,28 @@ public class ThreadsController extends Thread
 	private void moveInterne(int dir) {
 		switch (dir) {
 		case 4:
-			headSnakePos.ChangeData(headSnakePos.x, (headSnakePos.y + 1) % 20);
+			headSnakePos.ChangeData(headSnakePos.x, (headSnakePos.y + 1) % Window.height);	//% 20);
 			positions.add(new Tuple(headSnakePos.x, headSnakePos.y));
 			break;
 		case 3:
 			if (headSnakePos.y - 1 < 0) {
-				headSnakePos.ChangeData(headSnakePos.x, 19);
+				headSnakePos.ChangeData(headSnakePos.x, (Window.height - 1) );	// 19);
 			} else {
-				headSnakePos.ChangeData(headSnakePos.x, Math.abs(headSnakePos.y - 1) % 20);
+				headSnakePos.ChangeData(headSnakePos.x, Math.abs(headSnakePos.y - 1) % Window.height); //% 20);
 			}
 			positions.add(new Tuple(headSnakePos.x, headSnakePos.y));
 			break;
 		case 2:
 			if (headSnakePos.x - 1 < 0) {
-				headSnakePos.ChangeData(19, headSnakePos.y);
+				headSnakePos.ChangeData( (Window.width -1) , headSnakePos.y);	// 19, headSnakePos.y);
 			} else {
-				headSnakePos.ChangeData(Math.abs(headSnakePos.x - 1) % 20, headSnakePos.y);
+				headSnakePos.ChangeData(Math.abs(headSnakePos.x - 1) % Window.width, headSnakePos.y);	// % 20, headSnakePos.y);
 			}
 			positions.add(new Tuple(headSnakePos.x, headSnakePos.y));
 
 			break;
 		case 1:
-			headSnakePos.ChangeData(Math.abs(headSnakePos.x + 1) % 20, headSnakePos.y);
+			headSnakePos.ChangeData(Math.abs(headSnakePos.x + 1) % Window.width, headSnakePos.y);	// % 20, headSnakePos.y);
 			positions.add(new Tuple(headSnakePos.x, headSnakePos.y));
 			break;
 		}
