@@ -6,16 +6,23 @@ public class ThreadsController extends Thread
 {
 	ArrayList<ArrayList<DataOfSquare>> Squares = new ArrayList<ArrayList<DataOfSquare>>();
 	Tuple headSnakePos;
-	int sizeSnake = 3;
+	int sizeSnake = 3; // 3;
 	private static long speed = 50;
 	public static int directionSnake;
-	private static int scoreCounter = 0;
+	private int scoreCounter = 0;
+	boolean stopGame = false;
 	
 	ArrayList<Tuple> positions = new ArrayList<Tuple>();
 	Tuple foodPosition;
 
 	// Constructor of ThreadsController
 	ThreadsController(Tuple positionDepart)
+	{
+		setupGameThread(positionDepart);
+
+	} //end of constructor
+	
+	public void setupGameThread(Tuple positionDepart)
 	{
 		// Get all the threads
 		Squares = GamePlayPanel.Grid;
@@ -25,12 +32,15 @@ public class ThreadsController extends Thread
 
 		// !!! Pointer !!!!
 		Tuple headPos = new Tuple(headSnakePos.getX(), headSnakePos.getY());
+		positions.clear();
 		positions.add(headPos);
 
 		foodPosition = new Tuple(GamePlayPanel.height - 1, GamePlayPanel.width - 1);
 		spawnFood(foodPosition);
-
-	}
+		
+		sizeSnake = 3;
+		scoreCounter = 0;
+	} //end of setupGameThread method
 	
 	public static void setSpeed(long s)
 	{
@@ -44,10 +54,15 @@ public class ThreadsController extends Thread
 	
 	
 	
-	public static int getScoreCounter()
+	public int getScoreCounter()
 	{
 		return scoreCounter;
 	}
+	
+	public void setstopGame(boolean gameStatus)
+	{
+		stopGame = gameStatus;
+	} //end of setStopGame method
 	
 	// Important part :
 	public void run() {
@@ -94,7 +109,8 @@ public class ThreadsController extends Thread
 	// Stops The Game
 	private void stopTheGame() {
 		System.out.println("COLISION! \n");
-		while (true) {
+		stopGame = true;
+		while (stopGame) {
 			pauser();
 		}
 	}

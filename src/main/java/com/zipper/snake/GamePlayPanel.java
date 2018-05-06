@@ -10,7 +10,9 @@ class GamePlayPanel extends JPanel
 	public static int width = 20;
 	public static int height = 20;
 	public static ArrayList<ArrayList<DataOfSquare>> Grid;
-
+	private ArrayList<DataOfSquare> data;
+	private ThreadsController c;
+	
 	private JPanel screenPanel;
 	
 	private JPanel scorePanel;
@@ -24,7 +26,7 @@ class GamePlayPanel extends JPanel
 		
 		// Creates the ArrayList that'll contain the threads
 		Grid = new ArrayList<ArrayList<DataOfSquare>>();
-		ArrayList<DataOfSquare> data;
+		
 
 		// Creates Threads and its data and adds it to the arrayList
 		for (int i = 0; i < width; i++)
@@ -37,7 +39,7 @@ class GamePlayPanel extends JPanel
 			} //inner for loop
 			Grid.add(data);
 		} //outer for loop
-
+		
 		screenPanel = new JPanel();
 		screenPanel.setMinimumSize(new Dimension(300, 300)); // look into panel setting abilities..
 
@@ -65,13 +67,30 @@ class GamePlayPanel extends JPanel
 		// initial position of the snake
 		Tuple position = new Tuple(10, 10);
 		// passing this value to the controller
-		ThreadsController c = new ThreadsController(position);
+		c = new ThreadsController(position);
 
 		// c.setSpeed(100);
 		// Let's start the game now..
 		c.start();
 
-	} // end of GamePlayPanel constructor
+	} //end of GamePlayPanel constructor
+	
+	public void resetGrid()
+	{
+		for (int i = 0; i < width; i++)
+		{
+			for (int j = 0; j < height; j++)
+			{
+				Grid.get(i).get(j).lightMeUp(2);
+			} //inner for loop
+		} //outer for loop
+		
+	} //end of resetGrid method
+	
+	public ThreadsController getThreadsController()
+	{
+		return c;
+	} //end of getThreadsController method
 	
 	public void buildScoreComponents()
 	{

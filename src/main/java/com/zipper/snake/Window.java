@@ -3,7 +3,7 @@ package com.zipper.snake;
 import javax.swing.JFrame;
 import javax.swing.*;
 
-import java.awt.FlowLayout;
+import java.awt.*;
 import java.awt.event.*;
 
 class Window extends JFrame
@@ -22,6 +22,8 @@ class Window extends JFrame
 	//Panels
 	private GamePlayPanel gamePanel;
 	private SettingsPanel settingsPanel;
+
+	private KeyboardListener keyListener;
 	
 	public Window()
 	{
@@ -31,7 +33,7 @@ class Window extends JFrame
 		//Create and add SettingsPanel to the GUI
 		settingsPanel = new SettingsPanel();
 		add(settingsPanel);
-		//settingsPanel.setVisible(false);
+		settingsPanel.setVisible(false);
 		
 		//Create and add GamePlayPanel to the GUI
 		gamePanel = new GamePlayPanel();
@@ -39,26 +41,9 @@ class Window extends JFrame
 		//gamePanel.setVisible(false);
 		//settingsPanel.setVisible(true);
 		
-		// Links the window to the KeyboardListener.
-		gamePanel.addKeyListener((KeyListener) new KeyboardListener());
-	    
-		//Make screenPanel get the [initial focus.] focus whenever window is activated.
-		addWindowFocusListener(new WindowAdapter()
-		{
-			 public void windowGainedFocus(WindowEvent e)
-			 {
-				 gamePanel.requestFocusInWindow();
-			 }
-		});
-		
-		//gives the screenPanel back the keyboard focus so that arrows can control the snake.
-		//screenPanel.requestFocusInWindow();
-		//screenPanel.setFocusable(true);			//needed to give focus to screenPanel 
-	    addMouseListener(new ScreenMouseEvent());	//needed to return focus to screenPanel
-	    
+		enableAndFocusArrowKeys();
 	    
 	    buildMenu();
-	    //add(menuBar);
 	    
 		//Setting up the window settings
 		setTitle("Snake");
@@ -76,6 +61,48 @@ class Window extends JFrame
 		
 	} //end of Window constructor
 	
+	public void enableAndFocusArrowKeys()
+	{
+		// Links the window to the KeyboardListener. (Important)
+		gamePanel.addKeyListener( keyListener =  new KeyboardListener());
+	    
+		//Make screenPanel get the [initial focus.] focus whenever window is activated.
+		addWindowFocusListener(new WindowAdapter()
+		{
+			 public void windowGainedFocus(WindowEvent e)
+			 {
+				 gamePanel.requestFocusInWindow();
+			 }
+		});
+		
+		//gives the screenPanel back the keyboard focus so that arrows can control the snake.
+		//screenPanel.requestFocusInWindow();
+		//screenPanel.setFocusable(true);			//needed to give focus to screenPanel 
+	    addMouseListener(new ScreenMouseEvent());	//needed to return focus to screenPanel
+	    
+	} //end of enableAndFocusArrowKeys method
+	
+	public void newGame()
+	{
+		//Reset score text field
+		GamePlayPanel.scoreTxtField.setText("");
+		
+		//Reset the game board
+		gamePanel.resetGrid();
+		
+		//Reset ThreadsController
+		Tuple position = new Tuple(10, 10);
+		gamePanel.getThreadsController().setupGameThread(position);
+		
+		//Panel change (if applicable) and give panel control of arrows.
+		settingsPanel.setVisible(false);
+		gamePanel.setVisible(true);
+		gamePanel.requestFocusInWindow();
+		
+		//resume the game
+		gamePanel.getThreadsController().setstopGame(false);
+		
+	} //end of newGame method
 	
 	//class that gives the screenPanel back the keyboard focus so that arrows can control the snake.
 	public class ScreenMouseEvent implements MouseListener
@@ -134,8 +161,8 @@ class Window extends JFrame
 		testMenu.add(gameTestMI);
 		
 		//Add MenuListener to MenuItems
-		//newGameMenuItem.addActionListener(new MenuListener() );
-		//settingsMenuItem.addActionListener(new MenuListener() );
+		newGameMenuItem.addActionListener(new MenuListener() );
+		settingsMenuItem.addActionListener(new MenuListener() );
 		settingsTestMI.addActionListener( new MenuListener() );
 		gameTestMI.addActionListener(new MenuListener() );
 		
@@ -149,41 +176,35 @@ class Window extends JFrame
 		
 		public void actionPerformed(ActionEvent e)
 		{
-			/*
 			
 			if( e.getSource().equals(newGameMenuItem) )
 			{
 				System.out.println("newGameMenuItem menu item clicked");
+				newGame();
 			}
 			
 			if( e.getSource().equals(settingsMenuItem) )
 			{
 				System.out.println("settingsMenuItem menu item clicked");
 			}
-			*/
 			
 			if( e.getSource().equals(settingsTestMI) )
 			{
-				//System.out.println("Settings menu item clicked");
+				System.out.println("Settings menu item clicked");
 				gamePanel.setVisible(false);
 				settingsPanel.setVisible(true);
-				gamePanel = null;
-				//gamePanel = new GamePlayPanel();
+				
 			}
 			
 			if( e.getSource().equals(gameTestMI) )
 			{
-				//System.out.println("gameTestMI menu item clicked");
-				gamePanel = new GamePlayPanel();
-				settingsPanel.setVisible(false);
-				add(gamePanel);
-				gamePanel.addKeyListener((KeyListener) new KeyboardListener());
-				//pack();
-				gamePanel.setVisible(true);
+				System.out.println("gameTestMI menu item clicked");
+				
+				newGame();
+				
 			}
 			
-			
 		} //end of actionPerformed method
-		
-	}
+	} //end of MenuListener class
+	
 } //end of window class
