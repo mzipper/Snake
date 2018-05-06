@@ -24,11 +24,11 @@ class GamePlayPanel extends JPanel
 		
 		setLayout(new BorderLayout());
 		
-		// Creates the ArrayList that'll contain the threads
+		// Creates the ArrayList that'll contain the DataOfSquares
 		Grid = new ArrayList<ArrayList<DataOfSquare>>();
 		
 
-		// Creates Threads and its data and adds it to the arrayList
+		// Creates the DataOfSquares and its data and adds it to the arrayList
 		for (int i = 0; i < width; i++)
 		{
 			data = new ArrayList<DataOfSquare>();
@@ -46,7 +46,7 @@ class GamePlayPanel extends JPanel
 		// Setting up the layout of the panel
 		screenPanel.setLayout(new GridLayout(20, 20, 0, 0));
 
-		// Start & pauses all threads, then adds every square of each thread to
+		// Adds every squarePanel of each DataOfSquare to
 		// the panel
 		for (int i = 0; i < width; i++)
 		{

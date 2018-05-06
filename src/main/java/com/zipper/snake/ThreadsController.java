@@ -24,7 +24,7 @@ public class ThreadsController extends Thread
 	
 	public void setupGameThread(Tuple positionDepart)
 	{
-		// Get all the threads
+		// Get all the DataOfSquare (SquarePanels)
 		Squares = GamePlayPanel.Grid;
 
 		headSnakePos = new Tuple(positionDepart.x, positionDepart.y);

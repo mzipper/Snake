@@ -91,8 +91,7 @@ class Window extends JFrame
 		gamePanel.resetGrid();
 		
 		//Reset ThreadsController
-		Tuple position = new Tuple(10, 10);
-		gamePanel.getThreadsController().setupGameThread(position);
+		gamePanel.getThreadsController().setupGameThread(new Tuple(10, 10) );
 		
 		//Panel change (if applicable) and give panel control of arrows.
 		settingsPanel.setVisible(false);
