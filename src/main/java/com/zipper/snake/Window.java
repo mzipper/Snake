@@ -94,10 +94,10 @@ class Window extends JFrame{
 		ArrayList<DataOfSquare> data;
 		
 		// Creates Threads and its data and adds it to the arrayList
-		for(int i=0;i<width;i++)
+		for(int i=0;i<height;i++) //i<width;i++)
 		{
 			data= new ArrayList<DataOfSquare>();
-			for(int j=0;j<height;j++)
+			for(int j=0;j<width;j++) //j<height;j++)
 			{
 				DataOfSquare c = new DataOfSquare(2);
 				data.add(c);
@@ -106,13 +106,13 @@ class Window extends JFrame{
 		}
 				
 		// Setting up the layout of the panel
-		screenPanel.setLayout(new GridLayout(width,height,0,0));	//20,20,0,0));
+		screenPanel.setLayout(new GridLayout(height,width,0,0));	// width,height,0,0)); //20,20,0,0));
 		// Start & pauses all threads, then adds every square of each thread to the panel
-		for(int i=0;i<width;i++)
+		for(int i=0;i<height;i++) //i<width;i++)
 		{
-			for(int j=0;j<height;j++)
+			for(int j=0;j<width;j++) //j<height;j++)
 			{
-				screenPanel.add(Grid.get(i).get(j).square);
+				screenPanel.add(Grid.get(i).get(j).square); //Grid.get(i).get(j).square);
 			}
 		}
 				

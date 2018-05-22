@@ -27,7 +27,7 @@ public class ThreadsController extends Thread
 		Tuple headPos = new Tuple(headSnakePos.getX(), headSnakePos.getY());
 		positions.add(headPos);
 
-		foodPosition = new Tuple(Window.height - 1, Window.width - 1);	//20 - 1, 20 - 1);
+		foodPosition = new Tuple( Window.width -1, Window.height -1 ); // Window.height - 1, Window.width - 1);	//20 - 1, 20 - 1);
 		spawnFood(foodPosition);
 
 	}
@@ -80,7 +80,7 @@ public class ThreadsController extends Thread
 			}
 		}
 
-		boolean eatingFood = posCritique.getX() == foodPosition.y && posCritique.getY() == foodPosition.x;
+		boolean eatingFood = posCritique.getX() == foodPosition.x && posCritique.getY() == foodPosition.y; //posCritique.getX() == foodPosition.y && posCritique.getY() == foodPosition.x;
 		if (eatingFood) {
 			System.out.println("Yummy!");
 			Window.scoreTxtField.setText( Integer.toString(++scoreCounter) );
@@ -101,7 +101,7 @@ public class ThreadsController extends Thread
 
 	// Put food in a position and displays it
 	private void spawnFood(Tuple foodPositionIn) {
-		Squares.get(foodPositionIn.x).get(foodPositionIn.y).lightMeUp(1);
+		Squares.get(foodPositionIn.y).get(foodPositionIn.x).lightMeUp(1); //foodPositionIn.x).get(foodPositionIn.y).lightMeUp(1);
 	}
 
 	// return a position not occupied by the snake
@@ -111,7 +111,8 @@ public class ThreadsController extends Thread
 		int ranY = 0 + (int) (Math.random() * (Window.height - 1) ); // 19);
 		p = new Tuple(ranX, ranY);
 		for (int i = 0; i <= positions.size() - 1; i++) {
-			if (p.getY() == positions.get(i).getX() && p.getX() == positions.get(i).getY()) {
+			if (p.getX() == positions.get(i).getX() && p.getY() == positions.get(i).getY() ) //p.getY() == positions.get(i).getX() && p.getX() == positions.get(i).getY() )
+			{
 				ranX = 0 + (int) (Math.random() * (Window.width - 1) );	 // 19);
 				ranY = 0 + (int) (Math.random() * (Window.height - 1) ); // 19);
 				p = new Tuple(ranX, ranY);
@@ -156,9 +157,9 @@ public class ThreadsController extends Thread
 	// Refresh the squares that needs to be
 	private void moveExterne() {
 		for (Tuple t : positions) {
-			int y = t.getX();
-			int x = t.getY();
-			Squares.get(x).get(y).lightMeUp(0);
+			int x = t.getX(); //y = t.getX();
+			int y = t.getY(); //x = t.getY();
+			Squares.get(y).get(x).lightMeUp(0); //(x).get(y).lightMeUp(0);
 
 		}
 	}
