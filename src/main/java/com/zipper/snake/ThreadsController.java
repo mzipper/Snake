@@ -35,7 +35,7 @@ public class ThreadsController extends Thread
 		positions.clear();
 		positions.add(headPos);
 
-		foodPosition = new Tuple(GamePlayPanel.height - 1, GamePlayPanel.width - 1);
+		foodPosition = new Tuple( GamePlayPanel.width -1, GamePlayPanel.height -1 );
 		spawnFood(foodPosition);
 		
 		sizeSnake = 3;

@@ -27,7 +27,7 @@ class Window extends JFrame
 	
 	public Window()
 	{
-		setLayout(new FlowLayout());
+		setLayout(new BorderLayout());
 		//setMinimumSize(new Dimension(410, 300) ); //look into panel setting abilities..
 		
 		//Create and add SettingsPanel to the GUI
@@ -60,7 +60,7 @@ class Window extends JFrame
 		//c2.start();
 		
 	} //end of Window constructor
-	
+
 	public void enableAndFocusArrowKeys()
 	{
 		// Links the window to the KeyboardListener. (Important)

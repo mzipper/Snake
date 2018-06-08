@@ -29,10 +29,10 @@ class GamePlayPanel extends JPanel
 		
 
 		// Creates the DataOfSquares and its data and adds it to the arrayList
-		for (int i = 0; i < width; i++)
+		for (int i = 0; i < height; i++)
 		{
 			data = new ArrayList<DataOfSquare>();
-			for (int j = 0; j < height; j++)
+			for (int j = 0; j < width; j++)
 			{
 				DataOfSquare c = new DataOfSquare(2);
 				data.add(c);
@@ -44,13 +44,13 @@ class GamePlayPanel extends JPanel
 		screenPanel.setMinimumSize(new Dimension(300, 300)); // look into panel setting abilities..
 
 		// Setting up the layout of the panel
-		screenPanel.setLayout(new GridLayout(20, 20, 0, 0));
+		screenPanel.setLayout(new GridLayout(height, width));
 
 		// Adds every squarePanel of each DataOfSquare to
 		// the panel
-		for (int i = 0; i < width; i++)
+		for (int i = 0; i < height; i++)
 		{
-			for (int j = 0; j < height; j++)
+			for (int j = 0; j < width; j++)
 			{
 				screenPanel.add(Grid.get(i).get(j).square);
 			} //inner for loop
